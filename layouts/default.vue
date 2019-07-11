@@ -40,6 +40,11 @@ ul,li,ol{
 }
 
 a{
-  color: inherit
+  color: inherit;/* 继承父元素的颜色 */
+  text-decoration: none;
+}
+
+em,i{
+  font-style: normal;
 }
 </style>
