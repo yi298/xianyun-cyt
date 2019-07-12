@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- 相当于“挖坑” -->
+    <Header/>
     <nuxt />
+    <Footer/>
   </div>
 </template>
 
