@@ -61,7 +61,7 @@ export default {};
             border-bottom: 5px #409eff solid
         }
     }
-    .nuxt-link-exact-active{
+    .nuxt-link-exact-active{  //nuxt项目中使用了nuxt-link后，自动添加的class
         background: #409eff;
         color: #fff;
         &:hover{
