@@ -1,3 +1,5 @@
+// 保存用户信息到本地  npm install --save vuex-persistedstate
+
 import pkg from './package'
 
 export default {
@@ -36,7 +38,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    { src: '@/plugins/localStorage', ssr: false }
   ],
 
   /*
