@@ -72,7 +72,7 @@ export default {
         destCode: "", // 到达城市代码
         departDate: "" // 日期字符串
       },
-      value: ""
+      // value: ""
     };
   },
 
@@ -184,8 +184,8 @@ export default {
       // 实现跳转页面
       if (valid) {
         this.$router.push({
-          path: "/airs/flights",
-          query: this.form
+          path: "/air/flights",
+          query: this.form,
         });
       }
     },
