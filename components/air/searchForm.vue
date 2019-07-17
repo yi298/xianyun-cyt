@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import moment, { fn } from "moment";
+import moment from "moment";
 export default {
   data() {
     return {
