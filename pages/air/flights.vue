@@ -13,6 +13,17 @@
         <div>
           <!-- 航班列表 -->
           <FlightsItem v-for="(item,index) in dataList" :key="index" :data="item" />
+          <div class="block">
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="pageIndex"
+              :page-sizes="[5, 10, 15, 20]"
+              :page-size="pageSize"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="flightsData.total"
+            ></el-pagination>
+          </div>
         </div>
       </div>
 
@@ -37,7 +48,13 @@ export default {
   data() {
     return {
       dataList: [], // 航班列表数据，用于循环flightsItem组件
-      flightsData: {} //航班总数据
+      //航班总数据
+      flightsData: {
+        flights: []
+      },
+      // 分页
+      pageIndex:1, // 当前页数
+      pageSize:5, // 显示条数
     };
   },
 
@@ -52,6 +69,26 @@ export default {
         this.dataList = this.flightsData.flights;
         console.log(this.flightsData, "总数据");
       });
+    },
+
+    // 设置dataList数据
+    setDataList(){
+      const start =(this.pageIndex-1)*this.pageSize;
+      const end=start+this.pageSize;
+      this.dataList=this.flightsData.flights.slice(start,end)
+    },
+    
+    // 页面切换条数时触发
+    handleSizeChange(value){
+      this.pageSize=value;
+      this.pageIndex=1;
+      this.setDataList()
+    },
+    // 页面切换时触发
+    handleCurrentChange(value){
+      this.pageIndex=value,
+      this.setDataList()
+
     }
   },
 

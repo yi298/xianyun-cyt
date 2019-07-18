@@ -1,7 +1,7 @@
 <template>
   <!-- 列表内容  -->
   <div class="flight-item">
-    <div>
+    <div @click="handleShowRecommend">
       <!-- 显示的机票信息 -->
       <el-row type="flex" align="middle" class="flight-info">
         <el-col :span="6">
@@ -15,7 +15,7 @@
               <span>{{data.org_airport_name}}{{data.org_airport_quay}}</span>
             </el-col>
             <el-col :span="8" class="flight-time">
-              <span>2时20分</span>
+              <span>{{rankTime}}</span>
             </el-col>
             <el-col :span="8" class="flight-airport">
               <strong>{{data.arr_time}}</strong>
@@ -29,8 +29,8 @@
         </el-col>
       </el-row>
     </div>
-    <div class="flight-recommend">
-      <!-- 隐藏的座位信息列表 -->
+    <!-- 隐藏的座位信息列表 -->
+    <div class="flight-recommend" v-if="showRecommend">
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :span="4">低价推荐</el-col>
         <el-col :span="20">
@@ -43,7 +43,8 @@
             :key="index"
           >
             <el-col :span="16" class="flight-sell-left">
-              <span>{{item.name}}</span> | {{item.supplierName}}
+              <span>{{item.name}}</span>
+              | {{item.supplierName}}
             </el-col>
             <el-col :span="5" class="price">{{item.org_settle_price}}</el-col>
             <el-col :span="3" class="choose-button">
@@ -59,6 +60,40 @@
 
 <script>
 export default {
+  data() {
+    return {
+      // 默认列表收起
+      showRecommend: false
+    };
+  },
+
+  methods: {
+    // 控制推荐列表的展开和收起
+    handleShowRecommend() {
+      this.showRecommend = !this.showRecommend;
+    }
+  },
+  computed: {
+    // 出发和到达目的地间隔时间
+    rankTime() {
+      const arr = this.data.arr_time;
+      const dep = this.data.dep_time;
+      let end = arr.split(":");
+      let start = dep.split(":");
+
+      // 跨天时间
+      if (end < start) {
+        end[0] += 24;
+      }
+
+      const dis = end[0] * 60 + +end[1] - (start[0] * 60 + +start[1]);
+      const hours = Math.floor(dis / 60); //dis/60向下取整
+      const min = dis % 60;
+
+      return `${hours}时${min}分钟`;
+    }
+  },
+
   props: {
     // 数据
     data: {
