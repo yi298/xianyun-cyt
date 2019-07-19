@@ -24,7 +24,7 @@
             v-for="(item,index) in data.options.flightTimes"
             :key="index"
             :label="`${item.from}:00-${item.to}:00`"
-            :value="item"
+            :value="`${item.from},${item.to}`"
           ></el-option>
         </el-select>
       </el-col>
@@ -84,13 +84,11 @@ export default {
     },
 
     // 选择出发时间时候触发
-    handleFlightTimes(value,data) {
-      // const [from, to] = value.split(",");
+    handleFlightTimes(value) {
+      const [from, to] = value.split(",");
       const arr = this.data.flights.filter(v => {
-        return (
-          value.from <= +v.dep_time.split(":")[0] &&
-          value.to >= +v.dep_time.split(":")[0]
-        );
+        const [start]=v.dep_time.split(":");
+         return +from <= +start && +start < +to
       });
       console.log(value, "选择出发时间");
       this.$emit("setDataList", arr);

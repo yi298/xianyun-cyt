@@ -187,7 +187,16 @@ export default {
           path: "/air/flights",
           query: this.form,
         });
-      }
+      };
+      // 跳转时把搜索记录添加到本地储存
+      const airs=JSON.parse(localStorage.getItem('airs')||'[]')
+      airs.push(this.form)
+      localStorage.setItem('airs',JSON.stringify(airs))
+      this.$router.push({
+        path:'/air/flights',
+        query:this.form
+      })
+      console.log(this.form,'跳转储存到本地的内容');
     },
     // 出发和目标城市切换时触发
     handleReverse() {
