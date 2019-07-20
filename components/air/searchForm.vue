@@ -71,7 +71,7 @@ export default {
         destCity: "", // 到达城市
         destCode: "", // 到达城市代码
         departDate: "" // 日期字符串
-      },
+      }
       // value: ""
     };
   },
@@ -185,18 +185,18 @@ export default {
       if (valid) {
         this.$router.push({
           path: "/air/flights",
-          query: this.form,
+          query: this.form
         });
-      };
+      }
       // 跳转时把搜索记录添加到本地储存
-      const airs=JSON.parse(localStorage.getItem('airs')||'[]')
-      airs.push(this.form)
-      localStorage.setItem('airs',JSON.stringify(airs))
-      this.$router.push({
-        path:'/air/flights',
-        query:this.form
-      })
-      console.log(this.form,'跳转储存到本地的内容');
+      const airs = JSON.parse(localStorage.getItem("airs") || "[]");
+      airs.unshift(this.form);//unshift() 方法可向数组的开头添加一个或更多元素，并返回新的长度。
+      // 截取只剩五个记录
+      if (airs.length > 5) {
+        airs.length = 5;
+      }
+      localStorage.setItem("airs", JSON.stringify(airs));//储存记录，并转换为字符串
+      console.log(this.form, "跳转储存到本地的内容");
     },
     // 出发和目标城市切换时触发
     handleReverse() {

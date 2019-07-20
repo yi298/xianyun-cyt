@@ -39,18 +39,32 @@ export const actions = {
     })
       .then(res => {
         // 把数据保存到 Vuex 里面，user是模块名字
-        commit("setUserInfo", res.data)
-          // alert("登录成功")
-          // .then(() => {
-          //   this.$message.success("登录成功"); // 弹框，登录成功   不会！！
-          //   this.$router.push("/"); //点击“登录”，登录成功时跳转
-          // });
+        commit("setUserInfo", res.data);
+        // alert("登录成功")
+        // .then(() => {
+        //   this.$message.success("登录成功"); // 弹框，登录成功   不会！！
+        //   this.$router.push("/"); //点击“登录”，登录成功时跳转
+        // });
       })
       .catch(error => {
         console.log(error, "请求失败");
       });
-  }
+  },
 
   // 注册
   // register(){}
+
+  // 发送手机验证码
+  sendCode(store, phoneNumber) {
+    return this.$axios({
+      url: `/captchas`,
+      method: "POST",
+      data: {
+        tel: phoneNumber
+      }
+    }).then(res => {
+      const { code } = res.data;
+      return code;
+    });
+  }
 };
