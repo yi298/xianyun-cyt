@@ -67,6 +67,15 @@ export default {
     };
   },
 
+  props: {
+    // 数据
+    data: {
+      type: Object,
+      // 默认是空数组
+      default: {}
+    }
+  },
+
   methods: {
     // 控制推荐列表的展开和收起
     handleShowRecommend() {
@@ -75,7 +84,7 @@ export default {
     // 点击跳转到订单页
     handleToOrder(id, seat_xid) {
       this.$router.push({
-        path: "/air/order",  // 仅是获取路径，前面已经获取了航班总数据，不再需要再单独获取
+        path: "order",  // 仅是获取路径，前面已经获取了航班总数据，不再需要再单独获取
         query: {
           id,
           seat_xid
@@ -104,14 +113,7 @@ export default {
     }
   },
 
-  props: {
-    // 数据
-    data: {
-      type: Object,
-      // 默认是空数组
-      default: {}
-    }
-  }
+  
 };
 </script>
 
